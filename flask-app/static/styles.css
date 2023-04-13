@@ -1,0 +1,22 @@
+/* Reset browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #333;
+    padding: 20px;
+}
+
+.app-title {
+    font-size: 2rem;
+    color: #fff;
+    font-weight: bold;
+}

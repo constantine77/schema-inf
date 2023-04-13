@@ -1,0 +1,12 @@
+{
+    "schema": {
+        "name1": "category",
+        "favorite_number": "Int64",
+        "favorite_color": "string"
+    },
+    "not_null": {
+        "name1": true,
+        "favorite_number": false,
+        "favorite_color": false
+    }
+}

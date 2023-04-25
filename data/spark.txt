@@ -20,3 +20,29 @@ Finally, verify that Java 11 is now the default by running the following command
 Copy code
 java -version
 That's it! You have successfully installed Java 11 on macOS.
+
+If you are getting an error when trying to set Java 11 as the default version using the command I provided, it may be because the location of the JDK is different on your system.
+
+You can try the following steps to set Java 11 as the default version:
+
+First, check the location of your Java 11 installation by running the following command in Terminal:
+bash
+Copy code
+ls /Library/Java/JavaVirtualMachines/
+This will list the directories of all the installed JDKs on your system.
+
+Locate the directory for Java 11. It should be something like jdk-11.jdk.
+
+Use the following command to set Java 11 as the default version:
+
+bash
+Copy code
+sudo ln -sfn /Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/bin/java /usr/local/bin/java
+Make sure to replace jdk-11.jdk with the name of the directory for your Java 11 installation if it's different.
+
+Verify that Java 11 is now the default version by running the following command:
+Copy code
+java -version
+This should now show that Java 11 is the default version on your system.
+
+I hope this helps!

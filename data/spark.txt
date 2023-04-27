@@ -46,3 +46,45 @@ java -version
 This should now show that Java 11 is the default version on your system.
 
 I hope this helps!
+
+
+Sure, here are the steps to activate Java version 11 only using terminal commands on a Mac:
+
+Open the Terminal application on your Mac. You can find it in the Applications/Utilities folder or by searching for it using Spotlight.
+
+Check if Java 11 is already installed on your system by running the following command in the terminal:
+
+Copy code
+java -version
+If Java 11 is not installed, you can download and install it from the official Java website.
+
+Once you have Java 11 installed, you can use the following command in the terminal to set it as the default Java version:
+
+bash
+Copy code
+sudo ln -sf /Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/bin/java /usr/bin/java
+This will create a symbolic link from the system's /usr/bin/java command to the Java 11 installation.
+
+You can verify that Java 11 is the default version by running the following command in the terminal:
+
+Copy code
+java -version
+The output should now display the version of Java 11.
+
+To make this change permanent, you can add the following line to your shell configuration file (e.g., ~/.bashrc for the Bash shell or ~/.zshrc for the Zsh shell):
+
+bash
+Copy code
+export PATH="/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/bin:$PATH"
+This will add the Java 11 installation directory to the system's PATH environment variable, ensuring that the Java 11 version is used by default.
+
+Restart your terminal or run the following command to reload your shell configuration:
+
+bash
+Copy code
+source ~/.bashrc
+That's it! You have activated Java version 11 only using terminal commands on your Mac.
+
+
+
+

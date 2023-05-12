@@ -3,3 +3,49 @@ Here are the steps to install Java 11 on macOS:
 Open a web browser and go to the Oracle Java SE Development Kit 11 Downloads page at https://www.oracle.com/java/technologies/javase-jdk11-downloads.html.
 
 Scroll down to the macOS section and click on the Download button for the macOS Installer.
+
+1. Requirements Gathering
+
+Definition of functional and non-functional requirements
+Defining data flow, storage, and processing needs
+Defining success metrics and performance requirements
+Understanding existing infrastructure and system dependencies
+2. Design and Architecture
+
+System architecture design, including selection of technology stack
+Infrastructure design, such as EMR cluster configuration and scaling policies
+Design of DynamoDB schema for file submission metadata
+Design of the application that will run on the EMR master node
+Security and privacy design, including data encryption, IAM roles and policies
+3. Infrastructure Setup and Configuration
+
+Setting up AWS EMR clusters
+Configuring AWS Lambda function for EMR cluster provisioning
+Configuring AWS DynamoDB table for file submission metadata
+Designing and configuring monitoring and alerting systems
+4. Development
+
+Development of the AWS Lambda function
+Development of the application that runs on the EMR master node, including functionality for polling DynamoDB, launching Spark applications, and monitoring and scaling the EMR cluster
+Development of Hadoop Distributed Copy (DistCp) jobs for file submissions
+5. Testing
+
+Unit and integration testing of the Lambda function and the EMR master node application
+Performance and load testing of the overall system
+Testing the system's ability to scale up and down based on file submission load
+Security and vulnerability testing
+6. Deployment and Monitoring
+
+Deployment of the system to a production environment
+Monitoring of system performance and troubleshooting any issues
+Regularly checking system logs and responding to any alerts
+7. User Documentation and Training
+
+Creation of user documentation and training materials
+Training of end-users and system administrators
+Providing ongoing support and troubleshooting assistance
+8. User Onboarding
+
+Onboarding of initial set of users
+Collecting user feedback and making necessary adjustments to the system
+Scaling up user onboarding as system performance and stability are validated

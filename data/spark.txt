@@ -4,3 +4,277 @@ Open a web browser and go to the Oracle Java SE Development Kit 11 Downloads pag
 
 Scroll down to the macOS section and click on the Download button for the macOS Installer.
 
+all possible questions about tokenization process.
+
+What type of data are you planning to tokenize?
+What is the average and maximum size of the data chunks that will be tokenized?
+How many requests per second is the tokenization API endpoint expected to handle?
+What is the expected latency for tokenization requests?
+How is tokenization error handling implemented in your system?
+What security measures are in place to ensure the safety of the data during the tokenization process?
+How is the tokenization API endpoint scaling to accommodate different loads?
+What happens if the tokenization process fails for a chunk of data? How is retry logic implemented?
+Are there any specific character encoding considerations for the data being tokenized?
+How will tokenization affect data quality and integrity?
+Are you considering any specific tokenization algorithms or strategies? Why?
+How does the tokenization process handle null or missing values?
+How do you ensure data consistency in case of system failures during the tokenization process?
+How does your tokenization process handle sensitive data?
+Are there any performance benchmarks for the tokenization process? How are these monitored and maintained?
+How is data de-tokenization handled, if necessary?
+What are the limitations of your current tokenization process?
+How are tokens stored and managed after creation?
+How does the tokenization process handle large files and high volumes of data?
+How is the tokenization process integrated into the overall data processing pipeline?
+How is the tokenization process tested and validated? How frequently is this done?
+How are changes or updates to the tokenization process managed?
+Does the tokenization process comply with relevant data privacy and protection laws and regulations?
+How are issues or bugs in the tokenization process tracked and resolved?
+What monitoring and alerting mechanisms are in place for the tokenization process?
+
+
+Apossible questions about Spark execution engine
+
+What version of Spark are you currently using?
+What's the size of the data you are processing with Spark?
+How do you handle data partitioning in Spark?
+What is your strategy for managing Spark's in-memory computation?
+How are you handling fault tolerance in Spark?
+What's your strategy for optimizing Spark jobs for large datasets?
+How are you managing the resource allocation in Spark?
+How do you handle data skew in Spark?
+Are you using any specific libraries or tools with Spark, like MLlib, GraphX, etc.?
+What kind of data sources are you connecting to Spark?
+How do you monitor and debug Spark jobs?
+How are you handling data serialization in Spark?
+Are you using Spark Streaming or Structured Streaming for real-time processing? Why?
+How are you optimizing Spark's shuffle operations?
+Are you using Spark on YARN, Mesos, standalone, or a different cluster manager?
+How do you ensure data security in Spark?
+How are you managing Spark's garbage collection to avoid any memory issues?
+How do you handle job scheduling in Spark?
+What kind of testing and validation processes do you have for Spark applications?
+How are you handling Spark's data frame and Dataset APIs?
+What strategies are you using for Spark's data locality optimization?
+How do you handle backpressure in Spark Streaming?
+How are you managing and optimizing Spark's storage levels?
+Are you using any Spark SQL features? If so, how are they optimized?
+How are you managing Spark's speculative execution?
+Are you using any third-party tools or libraries to enhance Spark's performance and functionality?
+Are you using the Spark's machine learning capabilities? If so, how are you managing its performance?
+How are you handling the Spark's lazy evaluation model?
+What strategies are you using to handle large Spark job outputs?
+How are you dealing with potential bottlenecks in Spark's data processing pipeline?
+What is your disaster recovery plan for Spark jobs?
+
+
+Question about how ow to implement Spark Engine with scalable long-running EMR clusters to process the large batch file submissions in AWS cloud
+
+What is the estimated maximum size of the files to be processed, and how will this impact the EMR cluster's storage and compute requirements?
+
+How do you plan to configure and optimize Spark for processing large files, such as using data partitioning and caching strategies?
+
+What file formats will the large batch file submissions be in, and how will this impact the Spark application's processing logic?
+
+How will you ensure data durability and consistency in case of node failures or cluster shutdowns during the processing of large files?
+
+What strategies will you use to handle skewed data in the large files to avoid performance bottlenecks?
+
+How will you monitor and optimize the EMR cluster's resource utilization, such as CPU, memory, and storage, to ensure efficient and cost-effective processing?
+
+How do you plan to handle retries and error handling for failed Spark applications or hadoop distributed copy jobs?
+
+What is the expected frequency of large file submissions, and how will this impact the polling interval for the DynamoDB table?
+
+Will you be using Spot Instances for EMR cluster nodes to optimize costs, and if so, how will you handle the potential for interruptions?
+
+What security measures will you implement to protect the data stored in EMR clusters and DynamoDB tables, such as encryption at rest and in transit?
+
+How will you handle versioning and updates to the Spark application code and configuration without disrupting ongoing processing?
+
+What mechanisms will you use to scale out the EMR cluster based on pending file submissions and file size? Are you planning to use EMR's native auto-scaling or implement a custom solution?
+
+How will you ensure that the Lambda function for provisioning and rehydrating EMR clusters is reliable and resilient to failures?
+
+What monitoring and logging mechanisms will you use to track the performance and status of the Spark applications, hadoop distributed copy jobs, and EMR cluster resources?
+
+Are there any specific compliance requirements or data retention policies that you need to consider while implementing this solution?
+
+How will you handle schema evolution in the large files, and what strategies will you use to ensure that the Spark applications can process files with varying schemas?
+
+How do you plan to test the performance and scalability of the solution, including benchmarks for different file sizes and cluster configurations?
+
+Will the application on the EMR master node be a custom application or will you use an existing framework or tool for managing Spark applications and cluster resources?
+
+What is the expected latency in processing the large files, and are there any specific Service Level Agreements (SLAs) you need to meet?
+
+How do you plan to handle dependencies and library management for the Spark applications, ensuring that the required libraries are available on all nodes in the EMR cluster?
+
+What strategies will you use to minimize the data transfer costs between the EMR cluster and other AWS services, such as DynamoDB and S3?
+
+How will you ensure that the Spark applications' resource allocation (e.g., executor memory, driver memory, and core count) is optimized for the file sizes and processing complexity?
+
+What mechanisms will you use to control access to the EMR cluster and the application on the master node, such as authentication, authorization, and role-based access control?
+
+Are there any specific data processing or transformation requirements that the Spark applications need to handle, such as data cleansing, enrichment, or aggregation?
+
+How do you plan to handle long-running Spark applications that may exceed the Lambda function's maximum timeout, and what strategies will you use to ensure that the processing continues without interruption?
+
+Will you be using any specific Spark optimization techniques, such as dynamic allocation, adaptive query execution, or custom partitioning strategies?
+
+How will you handle the output of the processed files, such as storage, archiving, and data export?
+
+Are there any specific performance monitoring and alerting requirements, such as monitoring the EMR cluster's resource utilization, tracking Spark application failures, or detecting slow processing times?
+
+What disaster recovery and backup strategies will you use to ensure the continuity of the solution in case of failures or data loss?
+
+Will you be integrating this solution with any other AWS services or third-party applications, and if so, how will you ensure seamless interoperability?
+
+How do you plan to manage and update the Lambda function's code and configuration without disrupting the provisioning and rehydration of EMR clusters?
+
+What cost-optimization strategies will you use to minimize the expenses associated with running a long-running, scalable EMR cluster?
+
+Are there any specific requirements for data lineage or data provenance, such as tracking the source and processing history of the large files?
+
+How will you handle scenarios where the EMR cluster fails to scale out due to resource constraints or other limitations?
+
+How do you plan to implement continuous integration and continuous deployment (CI/CD) for the Spark applications and other components of the solution?
+
+
+
+
+
+There are two ways for development 	
+Ephemeral EMR - the cluster is configured to process only one file submission and is then terminated or application with scalable long-running EMR clusters  what is the best solution to implement?
+
+ChatGPT
+What is the frequency and volume of large file submissions, and how will this impact the cost and resource management for each approach (ephemeral EMR vs. long-running EMR)?
+
+How quickly do the submitted files need to be processed, and how does this affect the startup time and processing latency for each approach?
+
+What is the overall complexity of the processing tasks, and does it require frequent updates or modifications to the Spark applications that may benefit from one approach over the other?
+
+How do the data storage and archiving requirements differ between the two approaches, and what impact does this have on the overall solution's durability and reliability?
+
+How does each approach handle resource allocation, scaling, and cost optimization, considering the variable nature of large file submissions?
+
+What are the specific security and compliance requirements for your use case, and how do they impact the choice between ephemeral and long-running EMR clusters?
+
+How do the operational and maintenance overheads compare between the two approaches, and how will this impact your team's workload and focus?
+
+How do the two approaches handle fault tolerance and error recovery, and which one provides a better balance between resiliency and resource usage?
+
+What is the expected growth in file submission volume and size over time, and how will each approach handle the increased load and scalability requirements?
+
+How do the two approaches handle the provisioning and deprovisioning of resources, and which one provides a better balance between speed and cost?
+
+What are the performance monitoring and alerting requirements for your use case, and how do they impact the choice between ephemeral and long-running EMR clusters?
+
+How do the two approaches handle dependencies and library management for the Spark applications, and which one offers a more efficient and maintainable solution?
+
+How do the two approaches handle integration with other AWS services and third-party applications, and which one provides a better fit for your existing infrastructure and workflows?
+
+How will the choice between ephemeral and long-running EMR clusters impact your ability to implement continuous integration and continuous deployment (CI/CD) for the Spark applications and other components of the solution?
+
+What is the overall total cost of ownership (TCO) for each approach, considering factors such as infrastructure costs, maintenance, and operational overhead?
+
+How do the two approaches handle data lineage and data provenance, and which one provides a better solution for tracking the source and processing history of the large files?
+
+How do the two approaches handle disaster recovery and backup strategies, and which one provides a more reliable and resilient solution in case of failures or data loss?
+
+What is the level of expertise and familiarity your team has with each approach, and how will this impact the development and maintenance of the solution?
+
+How do the two approaches handle schema evolution in the large files, and which one offers a more flexible and adaptable solution for processing files with varying schemas?
+
+What are the key factors and priorities for your specific use case, such as cost, performance, scalability, or simplicity, and how do they influence the choice between ephemeral and long-running EMR clusters?
+
+
+
+
+
+ Questions to start the work, to check the current solution, architecture and what was done for POC.
+
+
+Can you provide a high-level overview of the current solution's architecture and its limitations in processing large files?
+
+What specific challenges or bottlenecks have you encountered with the current solution when processing large files?
+
+Can you share the details of the POC developed by the other team, including the architecture, technologies used, and the scope of the POC?
+
+How was the POC tested and validated, and what were the key findings, performance metrics, and potential areas of improvement?
+
+What file formats and data structures were used in the POC, and how were they processed using Spark?
+
+Were any specific optimization techniques or best practices implemented in the POC for processing large files efficiently, such as data partitioning, caching, or parallel processing?
+
+How were resources, such as memory and CPU, allocated for the Spark applications in the POC, and how were these configurations determined?
+
+What were the data storage, archiving, and retrieval mechanisms used in the POC, and how do they align with the target solution's requirements?
+
+What is the current state of integration between the POC and the existing solution, and what are the key challenges and considerations for further integration?
+
+Can you provide any documentation or resources related to the POC, such as code repositories, architecture diagrams, or performance benchmarks?
+
+What were the error handling and fault tolerance mechanisms implemented in the POC, and how can they be improved or adapted for the target solution?
+
+How did the POC handle schema evolution, and what strategies were used to ensure compatibility with varying file formats and structures?
+
+Were there any specific security or compliance requirements addressed in the POC, and how will they be incorporated into the final solution?
+
+How does the POC handle dependencies and library management for the Spark applications, and what improvements can be made for the target solution?
+
+What monitoring and logging mechanisms were used in the POC, and how can they be extended or enhanced for the final solution?
+
+How was the POC's performance and scalability tested, and what are the key learnings or recommendations for the target solution?
+
+What are the key lessons learned from the POC's development, and how can they be applied to the co-development work moving forward?
+
+Can you provide any information on the other team's development processes, tools, and methodologies, and how will these be integrated into the co-development work?
+
+What are the key milestones, deliverables, and timelines for the co-development work, and how will responsibilities be distributed between the teams?
+
+What communication channels and collaboration tools will be used during the co-development work to ensure smooth coordination between the teams?
+
+
+
+
+
+Questions about upstream and downstream dependencies, requirements for users input metadata to submit spark job, file formats, transformation and aggregation capabilities for Spark engine:
+
+Can you provide an overview of the upstream dependencies for the Spark engine, such as data sources, preprocessing steps, or other systems that provide input data?
+
+How will the upstream dependencies impact the Spark engine's performance, reliability, and data quality, and what measures can be taken to minimize these risks?
+
+What are the downstream dependencies for the Spark engine, such as data sinks, reporting systems, or other services that consume the processed data?
+
+How will the processed data be made available to downstream systems, and what are the requirements for data formats, data structures, and data transfer mechanisms?
+
+What are the specific user input metadata requirements for submitting a Spark job, such as job parameters, file locations, or resource allocation configurations?
+
+How will users submit the required metadata, and what mechanisms will be in place to validate, store, and manage this information?
+
+Are there any specific file formats that the Spark engine needs to support, and how will the processing logic need to be adapted for each format?
+
+What transformation capabilities are required for the Spark engine, such as data cleansing, normalization, or enrichment?
+
+How will the Spark engine handle complex transformations that may require additional processing resources or external libraries?
+
+What aggregation capabilities are required for the Spark engine, such as grouping, summarization, or statistical analysis?
+
+How will the Spark engine handle aggregations that involve large volumes of data or complex calculations, and what optimizations can be implemented to improve performance?
+
+Are there any specific performance or latency requirements for the transformation and aggregation capabilities of the Spark engine, and how will these be addressed in the solution's design and implementation?
+
+How will the Spark engine handle data quality issues, such as missing, inconsistent, or invalid data, during the transformation and aggregation processes?
+
+Are there any specific data lineage or data provenance requirements for the transformed and aggregated data, such as tracking the source and processing history?
+
+What are the requirements for monitoring and logging the transformation and aggregation processes, and how will this information be used for troubleshooting, performance analysis, or auditing purposes?
+
+How will the Spark engine handle schema evolution or changes in the input data's structure during the transformation and aggregation processes?
+
+Are there any specific security or compliance requirements for the transformed and aggregated data, such as encryption, anonymization, or data retention policies?
+
+How will the Spark engine's transformation and aggregation capabilities be tested and validated to ensure correctness, performance, and reliability?
+
+What are the plans for future enhancements or expansions of the Spark engine's transformation and aggregation capabilities, and how will these be incorporated into the current solution's design and architecture?

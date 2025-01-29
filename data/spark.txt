@@ -10,3 +10,210 @@ Implementation of Spark listeners and lineage spark-collector.
 </profile>
 
 
+1. Define High-Level Architecture
+The new pipeline should be modular, maintainable, and scalable. It will consist of Kubeflow Pipelines (for orchestration) and PySpark on Databricks/Jupyter for processing.
+
+Proposed Pipeline Steps (Equivalent to Existing EMR Pipeline)
+Triggering (On-Demand/Scheduled)
+
+Trigger via Kubeflow Pipelines for on-demand execution.
+Use Airflow or Kubeflow CronJob for scheduled execution.
+Data Ingestion (S3 to Processing)
+
+Use PySpark on Databricks or Jupyter Notebook to fetch data from S3.
+ETL Process (Convert Scala Logic to PySpark)
+
+Re-implement the ETL transformations from Scala to PySpark.
+Preprocessing
+
+Convert existing preprocessing logic from Scala to PySpark.
+Blocking Step
+
+Implement Blocking Algorithm in PySpark.
+Feature Engineering (Featurizer)
+
+Migrate existing Scala logic for feature extraction.
+Postprocessing
+
+Convert Scala postprocessing logic to PySpark.
+Insert Matches into S3
+
+Write the final processed data back to S3.
+Pipeline Termination
+
+Clean up resources after execution.
+2. Migration Strategy: Convert Scala Logic to PySpark
+Since all logic is written in Scala, we need a structured approach for conversion:
+
+Approach
+Analyze existing Scala-based transformations and create equivalent PySpark implementations.
+Validate the outputs of Scala and PySpark for accuracy.
+Tools for Scala-to-PySpark Conversion
+Use DataFrame API in PySpark.
+If existing logic uses RDDs in Scala, convert them to PySpark DataFrames.
+Example Scala-to-PySpark Conversion
+Scala Example (ETL Process)
+scala
+Copy
+Edit
+val df = spark.read.parquet("s3://source-bucket/data.parquet")
+val transformed_df = df.withColumn("new_column", col("existing_column") * 10)
+transformed_df.write.mode("overwrite").parquet("s3://target-bucket/output/")
+Equivalent PySpark Code
+python
+Copy
+Edit
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
+
+spark = SparkSession.builder.appName("ETLProcess").getOrCreate()
+
+df = spark.read.parquet("s3://source-bucket/data.parquet")
+transformed_df = df.withColumn("new_column", col("existing_column") * 10)
+transformed_df.write.mode("overwrite").parquet("s3://target-bucket/output/")
+3. Implement Kubeflow Pipeline
+Kubeflow will orchestrate the new pipeline. The steps below define how each stage will be modularized:
+
+Kubeflow Pipeline Definition
+Each pipeline step will be a Kubeflow component, responsible for different transformations.
+
+Example Kubeflow YAML for Pipeline Components
+yaml
+Copy
+Edit
+name: New Data Processing Pipeline
+
+components:
+  - name: Data Import
+    implementation:
+      container:
+        image: myrepo/data-import:latest
+        command: ["python", "data_import.py"]
+
+  - name: ETL
+    implementation:
+      container:
+        image: myrepo/etl:latest
+        command: ["python", "etl.py"]
+
+  - name: Preprocessing
+    implementation:
+      container:
+        image: myrepo/preprocessor:latest
+        command: ["python", "preprocessor.py"]
+
+  - name: Blocking
+    implementation:
+      container:
+        image: myrepo/blocking:latest
+        command: ["python", "blocking.py"]
+
+  - name: Featurizer
+    implementation:
+      container:
+        image: myrepo/featurizer:latest
+        command: ["python", "featurizer.py"]
+
+  - name: Postprocessing
+    implementation:
+      container:
+        image: myrepo/postprocessor:latest
+        command: ["python", "postprocessor.py"]
+
+  - name: Store in S3
+    implementation:
+      container:
+        image: myrepo/s3-writer:latest
+        command: ["python", "store_to_s3.py"]
+
+  - name: Terminate
+    implementation:
+      container:
+        image: myrepo/terminate:latest
+        command: ["python", "terminate.py"]
+Steps to Implement Kubeflow Pipeline
+Create individual Python scripts for each component.
+Package them as Docker images and push them to a container registry.
+Define the Kubeflow pipeline YAML (similar to the above).
+Deploy the pipeline on Kubeflow.
+Trigger the pipeline on-demand or on a schedule.
+4. Schedule Pipeline Execution
+You need to schedule and trigger the pipeline on demand. The following options are available:
+
+Option 1: Use Kubeflow CronJob for Scheduling
+Define a CronJob in Kubeflow to execute at a fixed schedule.
+
+yaml
+Copy
+Edit
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: data-pipeline-scheduler
+spec:
+  schedule: "0 12 * * *"  # Runs daily at 12 PM UTC
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: pipeline-trigger
+            image: myrepo/kubeflow-pipeline-trigger:latest
+            command: ["python", "trigger_pipeline.py"]
+          restartPolicy: OnFailure
+Option 2: Use Airflow to Trigger Kubeflow Pipeline
+Modify the Airflow DAG to trigger the Kubeflow pipeline.
+
+python
+Copy
+Edit
+from airflow.providers.google.cloud.operators.kubernetes_engine import GKEStartKubernetesPodOperator
+
+trigger_pipeline = GKEStartKubernetesPodOperator(
+    task_id="trigger_pipeline",
+    name="kubeflow_pipeline",
+    namespace="kubeflow",
+    image="myrepo/kubeflow-trigger:latest",
+    arguments=["python", "trigger_pipeline.py"],
+    dag=dag
+)
+This ensures the pipeline can be triggered manually or scheduled via Airflow.
+
+5. Write Processed Data Back to S3
+After transformation, the processed data should be stored in S3. Modify store_to_s3.py to handle this.
+
+Example Python Script to Store Data in S3
+python
+Copy
+Edit
+import boto3
+import pandas as pd
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("StoreToS3").getOrCreate()
+
+# Load processed data
+df = spark.read.parquet("s3://processed-data-bucket/output/")
+
+# Convert to Pandas
+pandas_df = df.toPandas()
+
+# Save to S3
+s3_client = boto3.client('s3')
+csv_buffer = pandas_df.to_csv(index=False)
+s3_client.put_object(Bucket="final-output-bucket", Key="final_results.csv", Body=csv_buffer)
+
+print("Data successfully written to S3")
+Final Summary
+Step	Details
+Convert Scala to PySpark	Implement equivalent transformations using PySpark.
+Use Kubeflow for Orchestration	Define modular pipeline components in Kubeflow.
+Use S3 for Input/Output	Read from and write back to S3.
+Trigger the pipeline	Use Kubeflow CronJob or Airflow DAG.
+Write Processed Data to S3	Implement storage logic using PySpark & Boto3.
+Next Steps
+✅ Convert Scala logic to PySpark.
+✅ Define the Kubeflow pipeline structure.
+✅ Develop individual pipeline steps (ETL, Blocking, Featurizer, etc.).
+✅ Integrate with S3 for data storage.
+✅ Set up on-demand and scheduled execution using Airflow or Kubeflow CronJob.

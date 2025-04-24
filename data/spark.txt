@@ -8,3 +8,25 @@ Implementation of Spark listeners and lineage spark-collector.
             <spark.version>3.0.1</spark.version>
         </properties>
 </profile>
+def get_combined_context(query: str):
+    swagger_lines = swagger_context if swagger_context else []
+    vector_docs = vectordb.similarity_search(query, k=4)
+    vector_lines = [doc.page_content for doc in vector_docs]
+    return swagger_lines + vector_lines
+
+# === INFERENCE FUNCTION ===
+def inference(message, history):
+    context_chunks = get_combined_context(message)
+    context = "\n===\n".join(context_chunks)
+
+    # Inject context into query for the agent
+    injected_query = f"""
+Use the following context to assist in answering the user's question.
+
+Context:
+{context}
+
+Question:
+{message}
+"""
+    return agent.run(injected_query)
